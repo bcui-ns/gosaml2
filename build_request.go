@@ -321,8 +321,9 @@ func (sp *SAMLServiceProvider) buildLogoutRequest(includeSig bool, nameID string
 
 	nameId := logoutRequest.CreateElement("saml:NameID")
 	nameId.SetText(nameID)
-	nameId.CreateAttr("Format", sp.NameIdFormat)
-
+	if sp.NameIdFormat != "" {
+		nameId.CreateAttr("Format", sp.NameIdFormat)
+	}
 	//Section 3.7.1 - http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf says
 	//SessionIndex is optional. If the IDP supports SLO then it must send SessionIndex as per
 	//Section 4.1.4.2 of https://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf.
